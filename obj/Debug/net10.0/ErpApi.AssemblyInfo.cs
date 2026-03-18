@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ErpApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f958565a32dc736f5d5580563d2814789a4fd934")]
 [assembly: System.Reflection.AssemblyProductAttribute("ErpApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ErpApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

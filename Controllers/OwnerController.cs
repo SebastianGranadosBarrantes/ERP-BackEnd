@@ -34,16 +34,17 @@ public class UsersController : ControllerBase
         return user;
     }
 
+
     [HttpPut("{id}")]
-
-    public async Task<IActionResult> PutUser(int id, Users user)
+    public async Task<IActionResult> UpdateUser(int id, UpdateUserDto dto)
     {
-        if (id != user.Id)
-        {
-            return BadRequest();
-        }
+        var user = await _context.Users.FindAsync(id);
 
-        _context.Entry(user).State = EntityState.Modified;
+        if (user == null)
+            return NotFound();
+
+        user.Email = dto.Email;
+        user.Username = dto.Username;
 
         try
         {
@@ -52,47 +53,17 @@ public class UsersController : ControllerBase
         catch (DbUpdateConcurrencyException)
         {
             if (!UserExists(id))
-            {
                 return NotFound();
-            }
             else
-            {
                 throw;
-            }
         }
+
         return NoContent();
     }
 
-    //     [HttpPut("{id}")]
 
-    // public async Task<IActionResult> ValidateUser(string email, string password)
-    // {
-    //     if (id != user.Id)
-    //     {
-    //         return BadRequest();
-    //     }
 
-    //     _context.Entry(user).State = EntityState.Modified;
-
-    //     try
-    //     {
-    //         await _context.SaveChangesAsync();
-    //     }
-    //     catch (DbUpdateConcurrencyException)
-    //     {
-    //         if (!UserExists(id))
-    //         {
-    //             return NotFound();
-    //         }
-    //         else
-    //         {
-    //             throw;
-    //         }
-    //     }
-    //     return NoContent();
-    // }
-
-    [HttpDelete ("{id}")]
+    [HttpDelete("{id}")]
 
     public async Task<IActionResult> DeleteUser(int id)
     {
