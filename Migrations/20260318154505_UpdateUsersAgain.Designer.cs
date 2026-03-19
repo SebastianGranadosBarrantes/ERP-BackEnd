@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyApi.Models;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ErpApi.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260318154505_UpdateUsersAgain")]
+    partial class UpdateUsersAgain
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -222,9 +225,12 @@ namespace ErpApi.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("roleId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("IdRol");
+                    b.HasIndex("roleId");
 
                     b.ToTable("Users");
                 });
@@ -296,7 +302,7 @@ namespace ErpApi.Migrations
                 {
                     b.HasOne("Rols", "role")
                         .WithMany()
-                        .HasForeignKey("IdRol")
+                        .HasForeignKey("roleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
