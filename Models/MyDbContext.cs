@@ -15,7 +15,7 @@ namespace MyApi.Models
         public DbSet<Categories> Categories { get; set; }
 
         public DbSet<Clients> Clients { get; set; }
-        
+
         public DbSet<Departments> Departments { get; set; }
 
         public DbSet<Orders> Orders { get; set; }
@@ -25,10 +25,10 @@ namespace MyApi.Models
         public DbSet<Rols> Rols { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<ProductXOrder>()
-            .HasKey(po => new { po.IdOrder, po.IdProduct });
-    }
+        {
+            modelBuilder.Entity<ProductXOrder>()
+                .HasKey(po => new { po.IdOrder, po.IdProduct });
+        }
 
     }
 

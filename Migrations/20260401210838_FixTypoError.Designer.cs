@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyApi.Models;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ErpApi.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260401210838_FixTypoError")]
+    partial class FixTypoError
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,11 +95,14 @@ namespace ErpApi.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("ClientId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("CreatedAt")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("IdClient")
+                    b.Property<int>("IdOwner")
                         .HasColumnType("integer");
 
                     b.Property<int>("IdWorker")
@@ -110,11 +116,14 @@ namespace ErpApi.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("WorkerId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("IdClient");
+                    b.HasIndex("ClientId");
 
-                    b.HasIndex("IdWorker");
+                    b.HasIndex("WorkerId");
 
                     b.ToTable("Orders");
                 });
@@ -146,6 +155,9 @@ namespace ErpApi.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("IdCategory")
                         .HasColumnType("integer");
 
@@ -161,7 +173,7 @@ namespace ErpApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdCategory");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
                 });
@@ -228,6 +240,9 @@ namespace ErpApi.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("HiredAt")
                         .IsRequired()
                         .HasColumnType("text");
@@ -245,7 +260,7 @@ namespace ErpApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdDepartment");
+                    b.HasIndex("DepartmentId");
 
                     b.ToTable("Workers");
                 });
@@ -254,13 +269,13 @@ namespace ErpApi.Migrations
                 {
                     b.HasOne("Clients", "Client")
                         .WithMany()
-                        .HasForeignKey("IdClient")
+                        .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Workers", "Worker")
                         .WithMany()
-                        .HasForeignKey("IdWorker")
+                        .HasForeignKey("WorkerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -273,7 +288,7 @@ namespace ErpApi.Migrations
                 {
                     b.HasOne("Categories", "Category")
                         .WithMany()
-                        .HasForeignKey("IdCategory")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -295,7 +310,7 @@ namespace ErpApi.Migrations
                 {
                     b.HasOne("Departments", "Department")
                         .WithMany()
-                        .HasForeignKey("IdDepartment")
+                        .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
