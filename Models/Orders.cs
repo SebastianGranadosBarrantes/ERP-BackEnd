@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 public class Orders
 {
     public required int Id { get; set; }
@@ -8,12 +10,16 @@ public class Orders
 
     public required string UpdatedAt { get; set; }
 
-    public required int IdOwner { get; set; }
+    public required int IdClient { get; set; }
 
     public required int IdWorker { get; set; }
 
-    public required Clients Client {get; set;}
+    [ForeignKey("IdClient")]
 
-    public required Workers Worker {get; set;}
+    public required Clients Client { get; set; }
+
+    [ForeignKey("IdWorker")]
+
+    public required Workers Worker { get; set; }
 
 }

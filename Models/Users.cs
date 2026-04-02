@@ -1,14 +1,19 @@
+using System.ComponentModel.DataAnnotations.Schema;
 
 public class Users
 {
-    public int Id {get; set;}
-    public required string Email {get; set;}
+    public Users()
+    {
+    }
 
-    public required string Password {get; set;}
+    public int Id { get; set; }
+    public string Email { get; set; }
+    public string Password { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public string Username { get; set; }
 
-    public required string CreatedAt;
+    public int IdRol { get; set; }
 
-    public int IdRol {get; set;}
-
-    public required Rols role {get; set;}
+    [ForeignKey("IdRol")]
+    public Rols role { get; set; }
 }
